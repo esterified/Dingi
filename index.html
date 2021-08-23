@@ -85,19 +85,22 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script>
+<script >
 let query="";
-function loope(result){
-    for(let i=0;i<result.length;i++){
-    console.log(result[i].name);
-    console.log('hello');
+function see(ll){
+  console.log(ll);
+ } 
+function loope(data){
+    for(let i=0;i<data.length;i++){
+    console.log(data[i].name);
+    
     }
   }
 $(document).ready(function(){
 
   $('#queryInput').on('input',function(e){
       query=$(this).val();
-      console.log(query);
+      see(query);
     });
   $("#queryInput").change(function(){
       //alert("The text has been changed.");
@@ -110,12 +113,16 @@ $(document).ready(function(){
           },
 
           type: "GET",
-          success: function(result) {
-              loope(result); 
+          success: function(data) {
+          a = JSON.stringify(data);
+          $('#div1').html(a);
+          loope(data.result);
           }
       });
   });
 });
+
+
 </script>
       
   </body>
