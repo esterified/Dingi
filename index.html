@@ -46,6 +46,23 @@
   </header>
 
   <main>
+    <div class="container">
+      <div class="d-flex flex-row p-4 ">
+      <div class="col-md-12">
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Dingi QUery</label>
+            <input type="text" class="form-control" id="queryInput" placeholder="Enter address to query">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>  
+      <div class="col-md-12" id="div1">
+        
+      </div>
+      </div>
+    </div>
     <h1>Get started with Bootstrap</h1>
     <p class="fs-5 col-md-8">Quickly and easily get started with Bootstrap's compiled, production-ready files with this barebones example featuring some basic HTML and helpful links. Download all our examples to get started.</p>
 
@@ -83,10 +100,36 @@
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+let query="";
+$(document).ready(function(){
 
+$('#queryInput').on('input',function(e){
+    query=$(this).val();
+    console.log(query);
+  });
+$("#queryInput").change(function(){
+    //alert("The text has been changed.");
+    $.ajax({
+         url: "https://dev.maps.api.dingi.live/search/all/",
+         data: { token : query },
+         headers: {
+         "Content-Type": "application/json",
+         "x-api-key": "8ad2645c-ad1f-4492-ab28-efedc7beced2",
+        
+        },
+
+         type: "GET",
+         success: function(result) {
+            console.log(result); 
+          }
+      });
+  });
+});
+</script>
       
   </body>
 </html>
