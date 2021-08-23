@@ -87,12 +87,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script>
 let query="";
-$(document).ready(function(){
-  function loop(result){
+function loop(result){
     for(let i=0;i<result.length;i++){
     console.log(result[i].name);
     }
   }
+$(document).ready(function(){
+
   $('#queryInput').on('input',function(e){
       query=$(this).val();
       console.log(query);
