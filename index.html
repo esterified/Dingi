@@ -39,33 +39,33 @@
   <body>
     
 <div class="col-lg-8 mx-auto p-3 py-md-5">
-  <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+  <header class="d-flex align-items-center pb-3 mb-2">
+    <div class="col-md-12">
+      <div class="card text-center shadow mb-4">
+        <div class="card-header">
+          <h5 class="card-title">Dingi API</h5>
+        </div>
+        <div class="card-body">     
+          <form>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="queryInput" placeholder="Location">
+              <div class="input-group-append">
+                <button class="btn btn-primary" id="btnData" type="submit">Search</button>  
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
 
+    </div>
   </header>
 
   <div class="wrapper">
     <div class="container">
       <div class="row p-4 shadow">
-        <div class="col-md-12">
-          <div class="card text-center shadow">
-            <div class="card-header">
-              <h5 class="card-title">Dingi API</h5>
-            </div>
-            <div class="card-body">     
-              <form>
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" id="queryInput" placeholder="Location">
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">Search</button>  
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-
-        </div> 
+ 
         <div class="col-md-12 demo-html">
-          <table id="dingiData" class="display" style="width:100%">
+          <table id="dingiData" class="display border" style="width:100%">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -83,7 +83,7 @@
             </tfoot>
            </table> 
         </div> 
-      <div class="col-md-12" id="div1">
+      <div class="col-md-12 mt-4" id="json-display">
         
       </div>
       </div>
@@ -105,12 +105,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="./JSON-view/dist/jquery.json-editor.min.js"></script>
 
 <script type="text/javascript">
-let query="";
+var query="";
+var flag=0;
+var table;
 function see(ll){
   console.log(ll);
  } 
+
 function loope(data){
     for(let i=0;i<data.length;i++){
     see(data[i].name);
@@ -118,37 +122,64 @@ function loope(data){
     }
 
   }
- function dataTable(q){
-  $('#dingiData').DataTable( {
-        "ajax": {
-          url: "https://dev.maps.api.dingi.live/search/all/",
-          data: { token : q },
-          dataSrc: "result",//this property to specify the datasrc according to the structure of the data
-          headers: {
-          "Content-Type": "application/json",
-          "x-api-key": "8ad2645c-ad1f-4492-ab28-efedc7beced2",
-          },
-          type: "GET"
-      },
-        "columns": [
-            { "data": "name" },
-            { "data": "location[, ]" ,
-              "defaultContent": "<i>Not set</i>"
-            }
+function dataTable(q){
+  if ( $.fn.dataTable.isDataTable( '#dingiData' ) ) {
+    table.destroy();
+    //table.ajax.reload();  
+  }
+  else{
+  }
+  table=$('#dingiData').DataTable( {
+          "ajax": {
+            url: "https://dev.maps.api.dingi.live/search/all/",
+            data: { "token" : q },
+            dataSrc: function ( json ) {
+              //a = JSON.stringify(json, null, 4);
+              //$('#div1').text(a);
+              loope(json.result);
+              var editor =new JsonEditor('#json-display', json);
+              editor.load(json);
+              return json.result;
+            },//this property to specify the datasrc according to the structure of the data
+            headers: {
+            "Content-Type": "application/json",
+            "x-api-key": "8ad2645c-ad1f-4492-ab28-efedc7beced2",
+            },
+            type: "GET"
 
-        ]
-    } );
+
+
+          },
+          "drawCallback": function( settings ) {
+            see( 'DataTables has redrawn the table' );
+
+          },
+          "columns": [
+              { "data": "name" },
+              { "data": "location[, ]" ,
+                "defaultContent": "<i>Not set</i>"
+              }
+
+          ]
+    });
  } 
 $(document).ready(function(){
+  dataTable("");
+  $('#btnData').click(function(e){
+    e.preventDefault();
+    query=$('#queryInput').val();
+    dataTable(query);
+  });
 
   $('#queryInput').on('input',function(e){
       query=$(this).val();
       see(query);
+      dataTable(query);
     });
   $("#queryInput").change(function(){
       //alert("The text has been changed.");
-      dataTable(query);
-      $.ajax({
+      //dataTable(query);
+/*       $.ajax({
           url: "https://dev.maps.api.dingi.live/search/all/",
           data: { token : query },
           headers: {
@@ -158,12 +189,14 @@ $(document).ready(function(){
 
           type: "GET",
           success: function(data) {
-          a = JSON.stringify(data);
-          $('#div1').html(a);
-          loope(data.result);
-          see(data.result);
+            //table.ajax.reload();
+            let data=table.data();
+            let a = JSON.stringify(data);
+            $('#div1').html(a);
+            //loope(data.result);
+            see(data.result);
           }
-      });
+      }); */
       
   });
 });
