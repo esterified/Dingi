@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -63,7 +63,25 @@
           </div>
         </div>
 
-      </div>  
+      </div> 
+      <div class="col-md-12 demo-html">
+        <table id="dingiData" class="display" style="width:100%">
+          <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Location</th>
+
+
+              </tr>
+          </thead>
+          <tfoot>
+              <tr>
+                  <th>Name</th>
+                  <th>Location</th>
+
+              </tr>
+          </tfoot>
+      </div> 
       <div class="col-md-12" id="div1">
         
       </div>
@@ -77,7 +95,7 @@
     </div>
   </main>
   <footer class="pt-5 my-5 text-muted border-top">
-    Created by the Bootstrap team &middot; &copy; 2021
+    Created by Esterified &middot; &copy; 2021
   </footer>
 </div>
 
@@ -85,17 +103,41 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script >
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
 let query="";
 function see(ll){
   console.log(ll);
  } 
 function loope(data){
     for(let i=0;i<data.length;i++){
-    console.log(data[i].name);
-    
+    see(data[i].name);
+
     }
+
   }
+ function dataTable(q){
+  $('#dingiData').DataTable( {
+        "ajax": {
+          url: "https://dev.maps.api.dingi.live/search/all/",
+          data: { token : q },
+          dataSrc: "result",//this property to specify the datasrc according to the structure of the data
+          headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "8ad2645c-ad1f-4492-ab28-efedc7beced2",
+          },
+          type: "GET"
+      },
+        "columns": [
+            { "data": "name" },
+            { "data": "location[, ]" ,
+              "defaultContent": "<i>Not set</i>"
+            }
+
+        ]
+    } );
+ } 
 $(document).ready(function(){
 
   $('#queryInput').on('input',function(e){
@@ -104,6 +146,7 @@ $(document).ready(function(){
     });
   $("#queryInput").change(function(){
       //alert("The text has been changed.");
+      dataTable(query);
       $.ajax({
           url: "https://dev.maps.api.dingi.live/search/all/",
           data: { token : query },
@@ -117,8 +160,10 @@ $(document).ready(function(){
           a = JSON.stringify(data);
           $('#div1').html(a);
           loope(data.result);
+          see(data.result);
           }
       });
+      
   });
 });
 
