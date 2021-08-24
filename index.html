@@ -43,45 +43,46 @@
 
   </header>
 
-  <main>
+  <div class="wrapper">
     <div class="container">
       <div class="row p-4 shadow">
-      <div class="col-md-12">
-        <div class="card text-center shadow">
-          <div class="card-header">
-            <h5 class="card-title">Dingi API</h5>
+        <div class="col-md-12">
+          <div class="card text-center shadow">
+            <div class="card-header">
+              <h5 class="card-title">Dingi API</h5>
+            </div>
+            <div class="card-body">     
+              <form>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" id="queryInput" placeholder="Location">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Search</button>  
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
-          <div class="card-body">     
-            <form>
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" id="queryInput" placeholder="Location">
-                <div class="input-group-append">
-                  <button class="btn btn-primary" type="submit">Search</button>  
-                 </div>
-              </div>
-            </form>
-          </div>
-        </div>
 
-      </div> 
-      <div class="col-md-12 demo-html">
-        <table id="dingiData" class="display" style="width:100%">
-          <thead>
-              <tr>
-                  <th>Name</th>
-                  <th>Location</th>
+        </div> 
+        <div class="col-md-12 demo-html">
+          <table id="dingiData" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
 
 
-              </tr>
-          </thead>
-          <tfoot>
-              <tr>
-                  <th>Name</th>
-                  <th>Location</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
 
-              </tr>
-          </tfoot>
-      </div> 
+                </tr>
+            </tfoot>
+           </table> 
+        </div> 
       <div class="col-md-12" id="div1">
         
       </div>
@@ -93,7 +94,7 @@
 
 
     </div>
-  </main>
+  </div>
   <footer class="pt-5 my-5 text-muted border-top">
     Created by Esterified &middot; &copy; 2021
   </footer>
