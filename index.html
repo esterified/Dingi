@@ -1,218 +1,249 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="Fayed Ishtar Chowdhury">
-    <meta name="generator" content="Hugo 0.84.0">
-    <title>Dingi Api</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/starter-template/">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Fayed Ishtar Chowdhury">
+  <meta name="generator" content="Hugo 0.84.0">
+  <title>Dingi Api</title>
 
-    
-    <!-- Font Awesome Icon Library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="particles.js/demo/css/style.css">
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/starter-template/">
+
+
+  <!-- Font Awesome Icon Library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="particles.js/demo/css/style.css">
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
       }
+    }
+  </style>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
 
-    
-    <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
-  </head>
-<body>
-    
-<div class="col-lg-8 mx-auto p-3 py-md-5">
-  <header class="d-flex align-items-center pb-3 mb-2">
-    <div class="col-md-12">
-      <div class="card text-center shadow mb-4">
-        <div class="card-header">
-          <h5 class="card-title">Dingi API</h5>
-        </div>
-        <div class="card-body">     
-          <form>
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" id="queryInput" placeholder="Location">
-              <div class="input-group-append">
-                <button class="btn btn-primary" id="btnData" type="submit">Search</button>  
+  <!-- Custom styles for this template -->
+  <link href="starter-template.css" rel="stylesheet">
+</head>
+
+<body >
+
+<!-- count particles -->
+<div class="count-particles">
+  <span class="js-count-particles">--</span> particles
+</div>
+<!-- particles.js container -->
+<div id="particles-js"></div>
+  <div class="col-lg-8 mx-auto p-3 py-md-5 mt-5 jumbotron" style="background-color: #e9ecefb3;">
+    <header class="d-flex align-items-center pb-3 mb-2">
+      <div class="col-md-12">
+        <div class="card text-center shadow mb-4">
+          <div class="card-header">
+            <h5 class="card-title">Dingi API</h5>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="queryInput" placeholder="Location">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" id="btnData" type="submit">Search</button>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <div class="wrapper">
+      <div class="container">
+        <div class="row p-4 shadow">
+
+          <div class="col-md-12 demo-html bg-white p-2">
+            <table id="dingiData" class="display border" style="width:100%">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Location</th>
+
+
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>Name</th>
+                  <th>Location</th>
+
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="col-md-12 mt-4 py-4 px-4" id="json-display">
+
+          </div>
         </div>
       </div>
-
-    </div>
-  </header>
-
-  <div class="wrapper">
-    <div class="container">
-      <div class="row p-4 shadow">
- 
-        <div class="col-md-12 demo-html">
-          <table id="dingiData" class="display border" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Location</th>
-
-
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Location</th>
-
-                </tr>
-            </tfoot>
-           </table> 
-        </div> 
-      <div class="col-md-12 mt-4" id="json-display">
-        
-      </div>
-      </div>
-    </div>
-  
-
-    <hr class="col-3 col-md-2 mb-5">
 
 
     </div>
   </div>
-  <!-- particles.js container -->
-<div id="particles-js"></div>
-  <footer class="pt-5 my-5 text-muted border-top">
+
+  <footer class="p-5 text-muted border-top bg-white">
     Created by Esterified &middot; &copy; 2021
   </footer>
-</div>
+  </div>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-<script src="./JSON-view/dist/jquery.json-editor.min.js"></script>
-<script src="./particles.js/particles.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+  <script src="./JSON-view/dist/jquery.json-editor.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
+  <script src="./particles.js/demo/js/app.js"></script>
 
-<script type="text/javascript">
-/* To load a config file (particles.json) you need to host this demo (MAMP/WAMP/local)... */
+  <script type="text/javascript">
+    
+    // stats.js -->
 
-particlesJS.load('particles-js', './particles.js/demo/particles.json', function() {
-  console.log('particles.js loaded - callback');
-});
 
-var query="";
-var flag=0;
-var table;
-function see(ll){
-  console.log(ll);
- } 
+    var count_particles, stats, update;
+    stats = new Stats;
+    stats.setMode(0);
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '0px';
+    stats.domElement.style.top = '0px';
+    document.body.appendChild(stats.domElement);
+    count_particles = document.querySelector('.js-count-particles');
+    update = function() {
+      stats.begin();
+      stats.end();
+      if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+        count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+      }
+      requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
 
-function loope(data){
-    for(let i=0;i<data.length;i++){
-    see(data[i].name);
+    var query = "";
+    var flag = 0;
+    var table;
+
+    function see(ll) {
+      console.log(ll);
+    }
+
+    function loope(data) {
+      for (let i = 0; i < data.length; i++) {
+        see(data[i].name);
+
+      }
 
     }
 
-  }
-function dataTable(q){
-  if ( $.fn.dataTable.isDataTable( '#dingiData' ) ) {
-    table.destroy();
-    //table.ajax.reload();  
-  }
-  else{
-  }
-  table=$('#dingiData').DataTable( {
-          "ajax": {
-            url: "https://dev.maps.api.dingi.live/search/all/",
-            data: { "token" : q },
-            dataSrc: function ( json ) {
-              //a = JSON.stringify(json, null, 4);
-              //$('#div1').text(a);
-              loope(json.result);
-              var editor =new JsonEditor('#json-display', json);
-              editor.load(json);
-              return json.result;
-            },//this property to specify the datasrc according to the structure of the data
-            headers: {
+    function dataTable(q) {
+      if ($.fn.dataTable.isDataTable('#dingiData')) {
+        table.destroy();
+        //table.ajax.reload();  
+      } else {}
+      table = $('#dingiData').DataTable({
+        "ajax": {
+          url: "https://dev.maps.api.dingi.live/search/all/",
+          data: {
+            "token": q
+          },
+          dataSrc: function (json) {
+            //a = JSON.stringify(json, null, 4);
+            //$('#div1').text(a);
+            loope(json.result);
+            var editor = new JsonEditor('#json-display', json);
+            editor.load(json);
+            return json.result;
+          }, //this property to specify the datasrc according to the structure of the data
+          headers: {
             "Content-Type": "application/json",
             "x-api-key": "8ad2645c-ad1f-4492-ab28-efedc7beced2",
-            },
-            type: "GET"
-
-
-
           },
-          "drawCallback": function( settings ) {
-            see( 'DataTables has redrawn the table' );
+          type: "GET"
 
+
+
+        },
+        "drawCallback": function (settings) {
+          see('DataTables has redrawn the table');
+
+        },
+        "columns": [{
+            "data": "name"
           },
-          "columns": [
-              { "data": "name" },
-              { "data": "location[, ]" ,
-                "defaultContent": "<i>Not set</i>"
-              }
-
-          ]
-    });
- } 
-$(document).ready(function(){
-  dataTable("");
-  $('#btnData').click(function(e){
-    e.preventDefault();
-    query=$('#queryInput').val();
-    dataTable(query);
-  });
-
-  $('#queryInput').on('input',function(e){
-      query=$(this).val();
-      see(query);
-      dataTable(query);
-    });
-  $("#queryInput").change(function(){
-      //alert("The text has been changed.");
-      //dataTable(query);
-/*       $.ajax({
-          url: "https://dev.maps.api.dingi.live/search/all/",
-          data: { token : query },
-          headers: {
-          "Content-Type": "application/json",
-          "x-api-key": "8ad2645c-ad1f-4492-ab28-efedc7beced2",
-          },
-
-          type: "GET",
-          success: function(data) {
-            //table.ajax.reload();
-            let data=table.data();
-            let a = JSON.stringify(data);
-            $('#div1').html(a);
-            //loope(data.result);
-            see(data.result);
+          {
+            "data": "location[, ]",
+            "defaultContent": "<i>Not set</i>"
           }
-      }); */
-      
-  });
-});
 
+        ]
+      });
+    }
+    $(document).ready(function () {
+      dataTable("");
+      $('#btnData').click(function (e) {
+        e.preventDefault();
+        query = $('#queryInput').val();
+        dataTable(query);
+      });
 
-</script>
-      
-  </body>
+      $('#queryInput').on('input', function (e) {
+        query = $(this).val();
+        see(query);
+        dataTable(query);
+      });
+      $("#queryInput").change(function () {
+        //alert("The text has been changed.");
+        //dataTable(query);
+        /*       $.ajax({
+                  url: "https://dev.maps.api.dingi.live/search/all/",
+                  data: { token : query },
+                  headers: {
+                  "Content-Type": "application/json",
+                  "x-api-key": "8ad2645c-ad1f-4492-ab28-efedc7beced2",
+                  },
+
+                  type: "GET",
+                  success: function(data) {
+                    //table.ajax.reload();
+                    let data=table.data();
+                    let a = JSON.stringify(data);
+                    $('#div1').html(a);
+                    //loope(data.result);
+                    see(data.result);
+                  }
+              }); */
+
+      });
+    });
+  </script>
+
+</body>
+
 </html>
