@@ -36,7 +36,7 @@
     <!-- Custom styles for this template -->
     <link href="starter-template.css" rel="stylesheet">
   </head>
-  <body>
+<body>
     
 <div class="col-lg-8 mx-auto p-3 py-md-5">
   <header class="d-flex align-items-center pb-3 mb-2">
@@ -95,6 +95,8 @@
 
     </div>
   </div>
+  <!-- particles.js container -->
+<div id="particles-js"></div>
   <footer class="pt-5 my-5 text-muted border-top">
     Created by Esterified &middot; &copy; 2021
   </footer>
@@ -106,8 +108,15 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <script src="./JSON-view/dist/jquery.json-editor.min.js"></script>
+<script src="./particles.js/particles.js"></script>
 
 <script type="text/javascript">
+/* To load a config file (particles.json) you need to host this demo (MAMP/WAMP/local)... */
+
+particlesJS.load('particles-js', './particles.js/demo/particles.json', function() {
+  console.log('particles.js loaded - callback');
+});
+
 var query="";
 var flag=0;
 var table;
